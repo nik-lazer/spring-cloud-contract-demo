@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.4.21"
 	kotlin("plugin.spring") version "1.4.21"
+    id("org.springframework.cloud.contract") version "3.0.1"
 }
 
 group = "lan.guild"
@@ -21,6 +22,13 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier:3.0.1")
+}
+
+contracts {
+	testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
+	//packageWithBaseClasses.set("com.example.fraud")
+	baseClassForTests.set("lan.guild.contractprovider.contract.BaseContractTest")
 }
 
 tasks.withType<KotlinCompile> {
@@ -32,4 +40,12 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+
+	testLogging {
+		exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+	}
+}
+
+tasks.named("compileContractTestKotlin") {
+	dependsOn("compileTestKotlin")
 }
