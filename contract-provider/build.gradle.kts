@@ -46,6 +46,8 @@ tasks.withType<Test> {
 	}
 }
 
-tasks.named("compileContractTestKotlin") {
-	dependsOn("compileTestKotlin")
+sourceSets {
+	test {
+		java.srcDir("src/test/kotlin")
+	}
 }

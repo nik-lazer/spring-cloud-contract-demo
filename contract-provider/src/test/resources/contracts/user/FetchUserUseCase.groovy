@@ -6,7 +6,7 @@ Contract.make {
     description "should return user by userId"
     request{
         method GET()
-        url("/user/\\d")
+        urlPath(regex("/user/\\d+"))
         headers {
             contentType applicationJson()
         }
