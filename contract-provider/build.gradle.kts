@@ -27,7 +27,6 @@ dependencies {
 
 contracts {
 	testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
-	//packageWithBaseClasses.set("com.example.fraud")
 	baseClassForTests.set("lan.guild.contractprovider.contract.BaseContractTest")
 }
 
